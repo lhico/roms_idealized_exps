@@ -2,7 +2,7 @@
 Compile ROMS at a given directory using the build scripts. We need to set up the
 paths. In this examples we are using a parallel implementation:
 
-I'm assuming you are using [this ROMS implementation](https://www.notion.so/How-to-use-the-Docker-ROMS-stack-to-run-the-upwelling-test-case-on-your-personal-computer-cf9d8220c7c643cd9baf88fefa5c99e0) by Danilo Silva
+I'm assuming you are using [this ROMS implementation](https://www.notion.so/How-to-use-the-Docker-ROMS-stack-to-run-the-upwelling-test-case-on-your-personal-computer-cf9d8220c7c643cd9baf88fefa5c99e0) by Danilo Silva and also our [pyroms_tools](https://github.com/CoastalHydrodynamicsLab/pyroms_tools)
 
 
 ## 1. Set up build_roms.sh
@@ -58,3 +58,10 @@ The number of processors used in parallel  simulations must be equal the product
 * upwelling.h (header file, name may change according to application)
 * varinfo.dat (sets names, units and other variable param. used in roms)
 * (...)
+
+
+## 5. Experiments
+* experiment01 - upwelling test
+* experiment02 - upwelling test with a grid (created using pyroms_tools)
+* experiment03 - homogeneous fields, 'wind' parallel to the coast (analytical experiment). The wind is actually the stress momentum flux.  
+* experiment04 - idealized stratified fields, 'wind' parallel to the coast.
