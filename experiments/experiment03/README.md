@@ -92,8 +92,8 @@ export MY_ANALYTICAL_DIR=${MY_PROJECT_DIR}/functionals
   (...)
   VARNAME = varinfo.dat
    (...)
-   Lm == 250            ! Number of I-direction INTERIOR RHO-points
-   Mm == 160            ! Number of J-direction INTERIOR RHO-points
+   Lm == 90            ! Number of I-direction INTERIOR RHO-points
+   Mm == 40            ! Number of J-direction INTERIOR RHO-points
    N  == 27            ! Number of vertical levels
 
    (...)
