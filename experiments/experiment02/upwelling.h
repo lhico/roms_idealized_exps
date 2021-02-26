@@ -33,7 +33,8 @@
 #define DIAGNOSTICS_TS
 #define DIAGNOSTICS_UV
 
-#define ANA_GRID
+/* #define ANA_GRID */
+#define MASKING
 #define ANA_INITIAL
 #define ANA_SMFLUX
 #define ANA_STFLUX
