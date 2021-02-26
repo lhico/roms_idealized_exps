@@ -1,5 +1,5 @@
 # Experiment 03
-This case consists of non-stratified, homogenous fields with wind parallel to
+This case consists of non-stratified fields with wind parallel to
 the coast (in this case we will the stress momentum flux).
 The upwelling.h example is the basis to  this project.
 
@@ -83,11 +83,11 @@ export MY_ANALYTICAL_DIR=${MY_PROJECT_DIR}/functionals
 
 
 ## 3. Set up winds_parallel.h
-  We are using the same grid from the upwelling with a non-analytical grid. The difference now is we will set the values of the analytical stress momentum flux. Notice that a description of the different switches are found in the roms manual.
+  We are using the same grid from the upwelling with a non-analytical grid (experiment02). The difference now is we will set the values of the analytical stress momentum flux. Notice that a description of the different switches are found in the roms manual.
 
 
 ## 4. Change wind_parallel.in
-   I'm assuming you already created a roms grid and copied into the `input`. Here,  we are setting some physics in the boundary conditions.
+   I'm assuming you already created a roms grid and copied into the `input`. Here,  we are setting some physics in the boundary conditions (The energy should not accumulate at open boundary conditions, but we all know this is not always easy). Look for the documentation on boundary condition in the roms manual, roms forum and also the code itself for more informations.
 ```
   (...)
   VARNAME = varinfo.dat
@@ -105,15 +105,15 @@ export MY_ANALYTICAL_DIR=${MY_PROJECT_DIR}/functionals
    (...)
    # boundary conditions: check the .in for more details
 
-   LBC(isFsur) ==   Rad     Clo     Rad     Rad         ! free-surface
-   LBC(isUbar) ==   Rad     Clo     Rad     Rad         ! 2D U-momentum
-   LBC(isVbar) ==   Rad     Clo     Rad     Rad         ! 2D V-momentum
-   LBC(isUvel) ==   Rad     Clo     Rad     Rad         ! 3D U-momentum
-   LBC(isVvel) ==   Rad     Clo     Rad     Rad         ! 3D V-momentum
-   LBC(isMtke) ==   Rad     Clo     Rad     Rad         ! mixing TKE
+   LBC(isFsur) ==   Cha     Cha     Cha     Clo         ! free-surface
+   LBC(isUbar) ==   Rad     Rad     Rad     Clo         ! 2D U-momentum
+   LBC(isVbar) ==   Rad     Rad     Rad     Clo         ! 2D V-momentum
+   LBC(isUvel) ==   Rad     Rad     Rad     Clo         ! 3D U-momentum
+   LBC(isVvel) ==   Rad     Rad     Rad     Clo         ! 3D V-momentum
+   LBC(isMtke) ==   Rad     Rad     Rad     Clo         ! mixing TKE
 
-   LBC(isTvar) ==   Clo     Clo     Clo     Clo \       ! temperature
-                    Clo     Clo     Clo     Clo         ! salinity
+   LBC(isTvar) ==   Rad     Rad     Rad     Clo \       ! temperature
+                    Rad     Rad     Rad     Clo         ! salinity
 
   ! Adjoint-based algorithms can have different lateral boundary
   ! conditions keywords.
