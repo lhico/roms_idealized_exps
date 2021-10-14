@@ -19,7 +19,7 @@ The instructions for each experiment are located at the README.md at each direct
 * experiment02 - introducing a numerical grid: upwelling test with a grid (created using pyroms_tools)
 * experiment03 - understanding analytic files: changing the idealized wind fields
 * experiment04 - introduction to boundary conditions: idealized stratified fields, 'wind' parallel to the coast.
-* experiment05 - including tide forcing: changing boundary conditions and dealing with horizontal viscosity parametrization
+* experiment05 - including tide forcing: changing boundary conditions and dealing with horizontal viscosity parameterization
 
 
 ## 1. Usage
