@@ -166,3 +166,7 @@ export MY_ANALYTICAL_DIR=${MY_PROJECT_DIR}/functionals
 ## 5. Set up analytical fields
 ### 5.1 Fortran switches
 I will not get into these details as simple_tides.h indicates what analytical fields require adjustments and compiling the model will tell what changes are required.
+
+
+## 6. Changing horizontal viscosity values
+The real ocean is not organized into bins. One of our model limitiations is the ability to simulate sub grid scale processes. For this reason we need to adjust the viscosity valeus in the .in file. The .in keys you'll use depend on the c++configuration file .h. In this case we are using the `UV_VIS2` in winds_parallel.h, which means you'll need to change the `VISC2` in the .in file. A suggestion of how to scale this parameter is [here (Radiation Stresses)](https://www.myroms.org/wiki/Horizontal_Mixing). 
