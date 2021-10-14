@@ -4,10 +4,6 @@ the coast and tides.
 
 Set the model with an analytical initial condition with stratified fields and try it yourself.
 
-This case consists of non-stratified, homogenous fields with wind parallel to
-the coast (in this case we will set the stress momentum flux as 0) and we are adding tides.
-The upwelling.h example is the basis to  this project.
-
 1. Set up the directory
 2. Set up build_roms.sh
 3. Change upwelling.h and set up boundary conditions
@@ -94,8 +90,16 @@ export MY_ANALYTICAL_DIR=${MY_PROJECT_DIR}/functionals
 #define MASKING
 /* #define ANA_GRID */
 
+#define TIDES_ASTRO
+#define POT_TIDES
+#define SSH_TIDES
+#define UV_TIDES
+#define RAMP_TIDES
+#define ADD_FSOBC
+#define ADD_M2OBC
 #define ANA_FSOBC
-#define ANA_M2OBC
+#define ANA_M2OBC 
+
 #define RADIATION_2D
 ```
 

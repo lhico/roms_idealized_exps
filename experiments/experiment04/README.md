@@ -4,9 +4,6 @@ the coast (in this case we will the stress momentum flux, t).
 
 Set the model with an analytical initial condition with stratified fields and try it yourself.
 
-This case consists of non-stratified, homogenous fields with wind parallel to
-the coast (in this case we will the stress momentum flux).
-The upwelling.h example is the basis to  this project.
 
 1. Set up the directory
 2. Set up build_roms.sh
@@ -105,9 +102,9 @@ export MY_ANALYTICAL_DIR=${MY_PROJECT_DIR}/functionals
   (...)
   VARNAME = varinfo.dat
    (...)
-   Lm == 90            ! Number of I-direction INTERIOR RHO-points
-   Mm == 40            ! Number of J-direction INTERIOR RHO-points
-   N  == 27            ! Number of vertical levels
+   Lm == 22            ! Number of I-direction INTERIOR RHO-points
+   Mm == 45            ! Number of J-direction INTERIOR RHO-points
+   N == 20             ! Number of vertical levels
 
    (...)
 

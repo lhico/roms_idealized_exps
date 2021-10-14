@@ -7,7 +7,6 @@ The upwelling.h example is the basis to  this project.
 3. Change upwelling.h
 4. Change roms_upwelling.in
 
-
 Including a non-analyitical grid requires us to update change upwelling.h. This file controls the physics and parameterization of ROMS.
 
 
@@ -15,8 +14,7 @@ Including a non-analyitical grid requires us to update change upwelling.h. This 
 
 ```
   PROJECT_PATH=/path/to/project
-  #ROMS_HOME=/path/to/roms
-  ROMS_HOME = /home/lhico/src_code/ROMS
+  ROMS_HOME=/path/to/roms/source/code/ROMS
   cd ${ROMS_HOME}
 
   # the fortran files that configure analytical fields will  be copied here
@@ -31,17 +29,16 @@ Including a non-analyitical grid requires us to update change upwelling.h. This 
   cp ${ROMS_HOME}/External/varinfo.dat       $PROJECT_PATH
   cp ${ROMS_HOME}/Include/upwelling.h        $PROJECT_PATH
 
-
 ```
 
-## 2. Set up build_roms.sh
+## 2. Set up build_roms.sh with parallel processing capabilities
 
 
 ```
 (...)
 export MY_ROOT_DIR=${HOME}/src_code    #src_code contains ROMS source code
-export     MY_PROJECT_DIR=${PWD}
-
+export MY_PROJECT_DIR=${PWD}
+export MY_ROMS_SRC=${MY_ROOT_DIR}
 (...)
 export       MY_ROMS_SRC=${MY_ROOT_DIR}
 (...)
@@ -77,27 +74,43 @@ export         USE_NETCDF4=on              # compile with NetCDF-4 library
   define MASKING
 ```
 
+compile the model: `./build_roms.sh`
+
+
 ## 4. Change roms_upwelling.in
 
-You must create a gridfile (here: `sbb_grid_roms.nc`), which will be read by `roms_upwelling.in`. The grid parameters may be found in the tools you used to create the grid. In the example, the grid was saved into the `input` directory.
+You must create a gridfile (here: `roms_grid00.nc`), which will be read by `roms_upwelling.in`. The grid parameters may be found in the tools you used to create the grid. In the example, the grid was saved into the `input` directory.
+
+
+
 
 ```
    (...)
    VARNAME = varinfo.dat
    (...)
-   Lm == 90            ! Number of I-direction INTERIOR RHO-points
-   Mm == 40            ! Number of J-direction INTERIOR RHO-points
-   N == 27              ! Number of vertical levels
+   Lm == 22            ! Number of I-direction INTERIOR RHO-points
+   Mm == 45            ! Number of J-direction INTERIOR RHO-points
+   N == 20             ! Number of vertical levels
 
    (...)
 
   THETA_S == 7.0d0                      ! surface stretching parameter
   THETA_B == 3.0d0                      ! bottom  stretching parameter
-  TCLINE == 250.0d0                      ! critical depth (m)
+  TCLINE == 250.0d0                     ! critical depth (m)
 
    (...)
 
-   GRDNAME == input/sbb_grid_roms.nc
+   GRDNAME == input/roms_grid00.nc
 
    (...)
 ```
+
+
+You can find the Lm adn Mm values by checking the dimensions `xi_rho` and `eta_rho` and subtract 2 from each. You can use the command `ncdump -h roms_grid00.nc` to get the dimensions, where:
+
+```
+Lm = xi_rho - 2
+Mm = eta_rho - 2
+```
+
+The vertical stretching parameters are set while building the grid.

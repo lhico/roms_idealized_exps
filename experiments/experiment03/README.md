@@ -16,7 +16,7 @@ the .h files requires a recompilation of the model.
 ## 1. Set up directory (we are renaming upwelling.h)
 
 ```
-  PROJECT_PATH=/path/to/project
+  PROJECT_PATH=/path/to/roms/source/code/ROMS
   ROMS_HOME=/path/to/roms
   cd ${ROMS_HOME}
 
@@ -31,7 +31,7 @@ the .h files requires a recompilation of the model.
   cp ${ROMS_HOME}/External/roms_upwelling.in $PROJECT_PATH
   cp ${ROMS_HOME}/External/varinfo.dat       $PROJECT_PATH
   cp ${ROMS_HOME}/Include/upwelling.h        $PROJECT_PATH
-  cp ${ROMS_HOME}/User/Functionals/* $PROJECT_PATH/functionals
+  cp ${ROMS_HOME}/Functionals/* $PROJECT_PATH/functionals
 
   # renaming files
   mv roms_upwelling.in winds_parallel.in
@@ -55,6 +55,7 @@ export   ROMS_APPLICATION=WINDS_PARALLEL
 (...)
 export MY_ROOT_DIR=${HOME}/src_code    #src_code contains ROMS source code
 export     MY_PROJECT_DIR=${PWD}
+export MY_ROMS_SRC=${MY_ROOT_DIR}
 
 (...)
 export       MY_ROMS_SRC=${MY_ROOT_DIR}
@@ -92,9 +93,9 @@ export MY_ANALYTICAL_DIR=${MY_PROJECT_DIR}/functionals
   (...)
   VARNAME = varinfo.dat
    (...)
-   Lm == 90            ! Number of I-direction INTERIOR RHO-points
-   Mm == 40            ! Number of J-direction INTERIOR RHO-points
-   N  == 27            ! Number of vertical levels
+   Lm == 22            ! Number of I-direction INTERIOR RHO-points
+   Mm == 45            ! Number of J-direction INTERIOR RHO-points
+   N == 20             ! Number of vertical levels
 
    (...)
 
@@ -135,7 +136,7 @@ export MY_ANALYTICAL_DIR=${MY_PROJECT_DIR}/functionals
 
 ## 5. Set up analytical fields
 ### 5.1 Fortran switches
- The command `export   ROMS_APPLICATION=WINDS_PARALLEL` sets a switch that is used in the fortran scripts in `$PROJECT_PATH/functionals`. The following code snippet from `ana_smflux.h` exemplifies how the switch work:
+ The command `export   ROMS_APPLICATION=WINDS_PARALLEL` sets a switch that is used in the fortran scripts in `$PROJECT_PATH/functionals`. The following code snippet from `ana_smflux.h` exemplifies how the switch work (we added the switch at an appropriate location):
 
 ```
 !-----------------------------------------------------------------------
@@ -143,20 +144,17 @@ export MY_ANALYTICAL_DIR=${MY_PROJECT_DIR}/functionals
 !  XI-direction (m2/s2) at horizontal U-points.
 !-----------------------------------------------------------------------
 !
-#if defined MY_APPLICATION
+(...)
+#elif defined WINDS_PARALLEL
       DO j=JstrT,JendT
         DO i=IstrP,IendT
           sustr(i,j)=???
         END DO
       END DO
-#else
-      DO j=JstrT,JendT
-        DO i=IstrP,IendT
-          sustr(i,j)=0.0005_r8
-        END DO
-      END DO
 #endif
 ```
+
+[On the kinematic wind stress values](https://www.myroms.org/forum/viewtopic.php?t=4938)
 
 Let's say `export $ROMS_APPLICATION=MY_APPLICATION` is defined in the build script. If it is defined, the `#if  defined MY_APPLICATION` condition will select the loop that will be compiled and ignore the other one (since we have a `???` value, the compilation will fail, as a value needs to be set).
 
@@ -177,4 +175,10 @@ ROMS/Functionals/Module.mk:15: recipe for target '/home/lhico/projects/experimen
 make: *** [/home/lhico/projects/experiments/experiment03/Build_roms/analytical.o] Error 1
 ```
 
-Practical examples are present in the following directory: `${ROMS_HOME}/ROMS/Functionals`
+The examples are present in the following directory: `${ROMS_HOME}/ROMS/Functionals`
+
+You'll need to change analytical files that uses UPWELLING. Check for it by typing (in the functioinals directory):
+
+```
+grep -r UPWELLING *h
+```

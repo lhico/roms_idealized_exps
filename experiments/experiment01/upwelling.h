@@ -49,26 +49,6 @@
 # define ANA_VMIX
 #endif
 
-#if defined BIO_FENNEL  || defined ECOSIM || \
-    defined NPZD_POWELL || defined NEMURO
-# define ANA_BIOLOGY
-# define ANA_SPFLUX
-# define ANA_BPFLUX
-# define ANA_SRFLUX
-#endif
-
-#if defined NEMURO
-# define HOLLING_GRAZING
-# undef  IVLEV_EXPLICIT
-#endif
-
-#ifdef BIO_FENNEL
-# define CARBON
-# define DENITRIFICATION
-# define BIO_SEDIMENT
-# define DIAGNOSTICS_BIO
-#endif
-
 #ifdef PERFECT_RESTART
 # undef  AVERAGES
 # undef  DIAGNOSTICS_BIO
