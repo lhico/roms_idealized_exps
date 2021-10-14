@@ -15,12 +15,11 @@ ROMS files are:
 
 The instructions for each experiment are located at the README.md at each directory. They are:
 
-* experiment01 - upwelling test
-* experiment02 - upwelling test with a grid (created using pyroms_tools)
-* experiment03 - homogeneous fields, 'wind' parallel to the coast (analytical experiment). The wind is actually the stress momentum flux.  
-* experiment04 - idealized stratified fields, 'wind' parallel to the coast.
-* experiment05
-* experiment06
+* experiment01 - simple case: upwelling test (analitic stratification)
+* experiment02 - introducing a numerical grid: upwelling test with a grid (created using pyroms_tools)
+* experiment03 - understanding analytic files: changing the idealized wind fields
+* experiment04 - introduction to boundary conditions: idealized stratified fields, 'wind' parallel to the coast.
+* experiment05 - including tide forcing: changing boundary conditions and dealing with horizontal viscosity parametrization
 
 
 ## 1. Usage
