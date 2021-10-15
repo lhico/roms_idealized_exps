@@ -92,6 +92,15 @@ You must create a gridfile (here: `roms_grid00.nc`), which will be read by `roms
    Mm == 45            ! Number of J-direction INTERIOR RHO-points
    N == 20             ! Number of vertical levels
 
+  (...)
+
+  ! Domain decomposition parameters for serial, distributed-memory or
+  ! shared-memory configurations used to determine tile horizontal range
+  ! indices (Istr,Iend) and (Jstr,Jend), [1:Ngrids].
+
+    NtileI == 2                               ! I-direction partition
+    NtileJ == 2                               ! J-direction partition
+
    (...)
 
   THETA_S == 7.0d0                      ! surface stretching parameter
@@ -114,3 +123,6 @@ Mm = eta_rho - 2
 ```
 
 The vertical stretching parameters are set while building the grid.
+
+# Execute 
+```mpiexec -np 4 ./romsM upwelling.in```
