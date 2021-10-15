@@ -77,9 +77,17 @@ export         USE_NETCDF4=on              # compile with NetCDF-4 library
   the physics included in your compiled model.
 
 ```
-  /* define ANA_GRID */
-  define MASKING
+  /* #define ANA_GRID */
+  #define MASKING
 ```
+
+or 
+
+```
+  #undef ANA_GRID
+  #define MASKING
+```
+
 
 compile the model: `./build_roms.sh`
 
