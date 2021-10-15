@@ -1,6 +1,6 @@
-# Idealized runs for ROMS
+# ROMS: A simple tutorial
 
-These experiments were created to introduce the Regional Ocean Model System (ROMS) to new users.
+These experiments were created to introduce the Regional Ocean Model System (ROMS) to new users. They present an increasing complexity, which is built on top of the former case. 
 
 We use [this ROMS implementation](https://www.notion.so/How-to-use-the-Docker-ROMS-stack-to-run-the-upwelling-test-case-on-your-personal-computer-cf9d8220c7c643cd9baf88fefa5c99e0) by Danilo Silva and also our [pyroms_tools](https://github.com/CoastalHydrodynamicsLab/pyroms_tools), which was built on  top of [pyroms](https://github.com/ESMG/pyroms) and [xesmf](https://xesmf.readthedocs.io/en/latest/#). 
 
