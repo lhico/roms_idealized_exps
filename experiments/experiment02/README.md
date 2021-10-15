@@ -15,7 +15,7 @@ Including a non-analyitical grid requires us to update change upwelling.h. This 
 ```
   PROJECT_PATH=/path/to/project
   ROMS_HOME=/path/to/roms/source/code/ROMS
-  cd ${ROMS_HOME}
+  cd ${PROJECT_PATH}
 
   # the fortran files that configure analytical fields will  be copied here
   mkdir functionals  
