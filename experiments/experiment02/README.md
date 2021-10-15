@@ -11,10 +11,17 @@ Including a non-analyitical grid requires us to update change upwelling.h. This 
 
 
 ## 1. Set up  the directory
+We will recompile the model in an entire new directory:
+
+
 
 ```
-  PROJECT_PATH=/path/to/project
-  ROMS_HOME=/path/to/roms/source/code/ROMS
+  # create a directory
+  mkdir experiment02
+  cd experiment02
+
+  PROJECT_PATH=/path/to/project               #the directory we just created
+  ROMS_HOME=/path/to/roms/source/code/ROMS    #this is the ROMS directory inside the roms we downloaded with the svn
   cd ${PROJECT_PATH}
 
   # the fortran files that configure analytical fields will  be copied here
@@ -47,7 +54,7 @@ export          USE_MPIF90=on            # compile with mpif90 script
 # export        which_MPI=mpich          # compile with MPICH library
 # export        which_MPI=mpich2         # compile with MPICH2 library
 # export        which_MPI=mvapich2       # compile with MVAPICH2 library
-# export        which_MPI=openmpi        # compile with OpenMPI library
+export        which_MPI=openmpi        # compile with OpenMPI library
 # export        USE_OpenM =on            # shared-memory parallelism
 
 export              FORT=gfortran
@@ -125,4 +132,4 @@ Mm = eta_rho - 2
 The vertical stretching parameters are set while building the grid.
 
 # Execute 
-```mpiexec -np 4 ./romsM upwelling.in```
+```mpiexec -np 4 ./romsM roms_upwelling.in```
