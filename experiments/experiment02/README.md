@@ -1,5 +1,5 @@
 # Experiment 02:
-This case consists of non-stratified, homogenous fields with a numerical grid set by the user.
+This case consists of non-stratified, vertically stratified,horizontally homogenous fields with a numerical grid set by the user.
 The upwelling.h example is the basis to  this project.
 
 1. Set up the directory
