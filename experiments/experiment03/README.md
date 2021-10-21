@@ -10,12 +10,16 @@ The upwelling.h example is the basis to  this project.
 5. Set up analytical fields
 
 Changing the wind to an idealized field parallel to the coast will require us
-to work with the .h files in the ``$PROJECT_PATH/functionals` directory (see below). Any change in
+to work with the .h files in the `$PROJECT_PATH/functionals` directory (see below). Any change in
 the .h files requires a recompilation of the model.
 
 ## 1. Set up directory (we are renaming upwelling.h)
 
 ```
+  # create a directory
+  mkdir experiment03
+  cd experiment03
+
   PROJECT_PATH=/path/to/roms/source/code/ROMS
   ROMS_HOME=/path/to/roms
   cd ${ROMS_HOME}
@@ -42,8 +46,8 @@ the .h files requires a recompilation of the model.
 
 ## 2. Set up build_roms.sh
 
-The switch `$ROMS_APPLICATION` is used to define values in analytical fields.
-These fields are defined in scripts and you'll need to edit them and replace some
+IMPORTANT: The switch `$ROMS_APPLICATION` is used to define values in analytical fields. It is NOT simply the name of your application. Also, your c++ definition file (the .ht file) will be identified by this switch.
+You will need to edit the analytical files (`$PROJECT_PATH/functionals` directory) to your application. These fields are defined in scripts and you'll need to edit them and replace some
 values
 
 ```
@@ -54,7 +58,7 @@ export   ROMS_APPLICATION=WINDS_PARALLEL
 
 (...)
 export MY_ROOT_DIR=${HOME}/src_code    #src_code contains ROMS source code
-export     MY_PROJECT_DIR=${PWD}
+export MY_PROJECT_DIR=${PWD}
 export MY_ROMS_SRC=${MY_ROOT_DIR}
 
 (...)
@@ -65,7 +69,7 @@ export          USE_MPIF90=on            # compile with mpif90 script
 # export        which_MPI=mpich          # compile with MPICH library
 # export        which_MPI=mpich2         # compile with MPICH2 library
 # export        which_MPI=mvapich2       # compile with MVAPICH2 library
-# export        which_MPI=openmpi        # compile with OpenMPI library
+export        which_MPI=openmpi        # compile with OpenMPI library
 # export        USE_OpenM =on            # shared-memory parallelism
 
 export              FORT=gfortran
@@ -96,6 +100,15 @@ export MY_ANALYTICAL_DIR=${MY_PROJECT_DIR}/functionals
    Lm == 22            ! Number of I-direction INTERIOR RHO-points
    Mm == 45            ! Number of J-direction INTERIOR RHO-points
    N == 20             ! Number of vertical levels
+
+  (...)
+
+  ! Domain decomposition parameters for serial, distributed-memory or
+  ! shared-memory configurations used to determine tile horizontal range
+  ! indices (Istr,Iend) and (Jstr,Jend), [1:Ngrids].
+
+    NtileI == 2                               ! I-direction partition
+    NtileJ == 2                               ! J-direction partition
 
    (...)
 
@@ -131,8 +144,12 @@ export MY_ANALYTICAL_DIR=${MY_PROJECT_DIR}/functionals
 
 
    (...)
-   GRDNAME == input/sbb_grid_roms.nc
+   GRDNAME == input/roms_grid00.nc
 ```
+
+You can find the `Lm` and `Mm` values by checking the dimensions `xi_rho` and `eta_rho` and subtract 2 from each. You can use the command `ncdump -h roms_grid00.nc` to get the dimensions, where:
+
+
 
 ## 5. Set up analytical fields
 ### 5.1 Fortran switches
