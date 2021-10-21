@@ -1,6 +1,6 @@
 # Experiment 03
 This case consists of non-stratified fields with wind parallel to
-the coast (in this case we will the stress momentum flux).
+the coast (in this case we will set the stress momentum flux).
 The upwelling.h example is the basis to  this project.
 
 1. Set up the directory
