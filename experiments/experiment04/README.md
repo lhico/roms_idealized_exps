@@ -1,6 +1,6 @@
 # Experiment 04:
-This case consists of idealized stratified,fields with wind parallel to
-the coast (in this case we will the stress momentum flux, t).
+This case consists of vertically stratified, horizontally homogeneous fields, wind parallel to
+the coast. In this experiment, we will understand how does the boundary condition work when nudging is activated.
 
 Set the model with an analytical initial condition with stratified fields and try it yourself.
 
@@ -18,9 +18,13 @@ the .h files requires a recompilation of the model.
 ## 1. Set up directory (we are renaming upwelling.h)
 
 ```
-  PROJECT_PATH=/path/to/project
-  ROMS_HOME=/path/to/roms
-  cd ${ROMS_HOME}
+    # create a directory
+  mkdir experiment02
+  cd experiment02
+
+  PROJECT_PATH=/path/to/project               #the directory we just created
+  ROMS_HOME=/path/to/roms/source/code/ROMS    #this is the ROMS directory inside the roms we downloaded with the svn
+  cd ${PROJECT_PATH}
 
   # the fortran files that configure analytical fields will  be copied here
   mkdir functionals  
@@ -66,7 +70,7 @@ export          USE_MPIF90=on            # compile with mpif90 script
 # export        which_MPI=mpich          # compile with MPICH library
 # export        which_MPI=mpich2         # compile with MPICH2 library
 # export        which_MPI=mvapich2       # compile with MVAPICH2 library
-# export        which_MPI=openmpi        # compile with OpenMPI library
+export        which_MPI=openmpi        # compile with OpenMPI library
 # export        USE_OpenM =on            # shared-memory parallelism
 
 export              FORT=gfortran
@@ -85,11 +89,12 @@ export MY_ANALYTICAL_DIR=${MY_PROJECT_DIR}/functionals
 
 
 ## 3. Set up winds_parallel.h
-  We are using the same grid from the upwelling with a non-analytical grid. The difference now is we will set the values of the analytical stress momentum flux. Notice that a description of the different switches are found in the roms manual. Here we are using the following boundary condition switches: `Rad` and `RadNud`; The forum and the manual advise the use `Rad` with `#define RADIATION_2D` flag, while the 'RadNud' switch requires information either from input fields or from files with analytical conditions, which are supplied by the `#define ANA_FSOBC` and  `#define ANA_M2OBC`.
+  We are using the same grid from the upwelling with a non-analytical grid. Notice that a description of the different switches are found in the roms manual. Here we are using the following boundary condition switches: `Rad` and `RadNud`; The forum and the manual advise the use `Rad` with `#define RADIATION_2D` flag, while the 'RadNud' switch requires information either from input fields or from files with analytical conditions, which are supplied by the `#define ANA_FSOBC` and  `#define ANA_M2OBC`.
 
 ```
 #define MASKING
 /* #define ANA_GRID */
+#undef ANA_GRID
 
 #define ANA_FSOBC
 #define ANA_M2OBC
@@ -105,6 +110,15 @@ export MY_ANALYTICAL_DIR=${MY_PROJECT_DIR}/functionals
    Lm == 22            ! Number of I-direction INTERIOR RHO-points
    Mm == 45            ! Number of J-direction INTERIOR RHO-points
    N == 20             ! Number of vertical levels
+
+  (...)
+
+  ! Domain decomposition parameters for serial, distributed-memory or
+  ! shared-memory configurations used to determine tile horizontal range
+  ! indices (Istr,Iend) and (Jstr,Jend), [1:Ngrids].
+
+    NtileI == 2                               ! I-direction partition
+    NtileJ == 2                               ! J-direction partition
 
    (...)
 
@@ -153,10 +167,18 @@ export MY_ANALYTICAL_DIR=${MY_PROJECT_DIR}/functionals
 
 
    (...)
-   GRDNAME == input/sbb_grid_roms.nc
+
+   GRDNAME == input/roms_grid00.nc
+
+   (...)
 ```
 
+You can find the Lm and Mm values by checking the dimensions `xi_rho` and `eta_rho` and subtract 2 from each. You can use the command `ncdump -h roms_grid00.nc` to get the dimensions.
+The vertical stretching parameters are set while building the grid.
 ## 5. Set up analytical fields
 ### 5.1 Fortran switches
 I will not get into these details as winds_parallel.h indicates what analytical fields require adjustments.
 You can take the analytical stratification from the upwelling case in `src_code/ROMS/Functionals/ana_initial.h`
+
+# Execute 
+```mpiexec -np 4 ./romsM roms_upwelling.in```
