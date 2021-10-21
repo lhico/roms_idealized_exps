@@ -123,20 +123,14 @@ You must create a gridfile (here: `roms_grid00.nc`), which will be read by `roms
   TCLINE == 250.0d0                     ! critical depth (m)
 
    (...)
-
+   
    GRDNAME == input/roms_grid00.nc
 
    (...)
 ```
 
 
-You can find the Lm adn Mm values by checking the dimensions `xi_rho` and `eta_rho` and subtract 2 from each. You can use the command `ncdump -h roms_grid00.nc` to get the dimensions, where:
-
-```
-Lm = xi_rho - 2
-Mm = eta_rho - 2
-```
-
+You can find the Lm and Mm values by checking the dimensions `xi_rho` and `eta_rho` and subtract 2 from each. You can use the command `ncdump -h roms_grid00.nc` to get the dimensions.
 The vertical stretching parameters are set while building the grid.
 
 # Execute 
