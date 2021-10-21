@@ -119,29 +119,15 @@ export MY_ANALYTICAL_DIR=${MY_PROJECT_DIR}/functionals
    (...)
    # boundary conditions: check the .in for more details
 
-   LBC(isFsur) ==   Cha     Cha     Cha     Clo         ! free-surface
-   LBC(isUbar) ==   Rad     Rad     Rad     Clo         ! 2D U-momentum
-   LBC(isVbar) ==   Rad     Rad     Rad     Clo         ! 2D V-momentum
-   LBC(isUvel) ==   Rad     Rad     Rad     Clo         ! 3D U-momentum
-   LBC(isVvel) ==   Rad     Rad     Rad     Clo         ! 3D V-momentum
-   LBC(isMtke) ==   Rad     Rad     Rad     Clo         ! mixing TKE
+   LBC(isFsur) ==   Clo     Clo     Clo     Clo         ! free-surface
+   LBC(isUbar) ==   Clo     Clo     Clo     Clo         ! 2D U-momentum
+   LBC(isVbar) ==   Clo     Clo     Clo     Clo         ! 2D V-momentum
+   LBC(isUvel) ==   Clo     Clo     Clo     Clo         ! 3D U-momentum
+   LBC(isVvel) ==   Clo     Clo     Clo     Clo         ! 3D V-momentum
+   LBC(isMtke) ==   Clo     Clo     Clo     Clo         ! mixing TKE
 
-   LBC(isTvar) ==   Rad     Rad     Rad     Clo \       ! temperature
-                    Rad     Rad     Rad     Clo         ! salinity
-
-  ! Adjoint-based algorithms can have different lateral boundary
-  ! conditions keywords.
-
-  ad_LBC(isFsur) ==   Clo     Clo     Clo     Clo         ! free-surface
-  ad_LBC(isUbar) ==   Clo     Clo     Clo     Clo         ! 2D U-momentum
-  ad_LBC(isVbar) ==   Clo     Clo     Clo     Clo         ! 2D V-momentum
-  ad_LBC(isUvel) ==   Clo     Clo     Clo     Clo         ! 3D U-momentum
-  ad_LBC(isVvel) ==   Clo     Clo     Clo     Clo         ! 3D V-momentum
-  ad_LBC(isMtke) ==   Clo     Clo     Clo     Clo         ! mixing TKE
-
-  ad_LBC(isTvar) ==   Clo     Clo     Clo     Clo \       ! temperature
-                      Clo     Clo     Clo     Clo         ! salinity
-
+   LBC(isTvar) ==   Clo     Clo     Clo     Clo \       ! temperature
+                    Clo     Clo     Clo     Clo         ! salinity
 
    (...)
    GRDNAME == input/roms_grid00.nc
@@ -152,8 +138,17 @@ You can find the `Lm` and `Mm` values by checking the dimensions `xi_rho` and `e
 
 
 ## 5. Set up analytical fields
+
+Try to compile the model:
+
+```
+./build_roms.sh
+```
+
+An error related to analytical files should be thrown. This shows up because the analytical files need to be configured. Let's understand what is going on.
+
 ### 5.1 Fortran switches
- The command `export   ROMS_APPLICATION=WINDS_PARALLEL` sets a switch that is used in the fortran scripts in `$PROJECT_PATH/functionals`. The following code snippet from `ana_smflux.h` exemplifies how the switch work (we added the switch at an appropriate location):
+ The command `export   ROMS_APPLICATION=WINDS_PARALLEL` sets a switch used in the fortran scripts in `$PROJECT_PATH/functionals`. By changing this switch, you need to modify these functions. The following code snippet from `ana_smflux.h` exemplifies how the switch work (we added the switch at an appropriate location):
 
 ```
 !-----------------------------------------------------------------------
@@ -162,7 +157,7 @@ You can find the `Lm` and `Mm` values by checking the dimensions `xi_rho` and `e
 !-----------------------------------------------------------------------
 !
 (...)
-#elif defined WINDS_PARALLEL
+#elif defined MY_APPLICATION
       DO j=JstrT,JendT
         DO i=IstrP,IendT
           sustr(i,j)=???
@@ -171,11 +166,11 @@ You can find the `Lm` and `Mm` values by checking the dimensions `xi_rho` and `e
 #endif
 ```
 
-[On the kinematic wind stress values](https://www.myroms.org/forum/viewtopic.php?t=4938)
-
 Let's say `export $ROMS_APPLICATION=MY_APPLICATION` is defined in the build script. If it is defined, the `#if  defined MY_APPLICATION` condition will select the loop that will be compiled and ignore the other one (since we have a `???` value, the compilation will fail, as a value needs to be set).
 
-In our case, you'll need to change `ana_smflux.h` and other analytical scripts according to your needs. You can figure out what analytical scripts must be changed by looking at the active analytical functions in `winds_upwelling.h` or you can try to compile the model and it should return you an error and indicate what is wrong. For example:
+[HERE](https://www.myroms.org/forum/viewtopic.php?t=4938) you can find some information on the kinematic surface momentum flux.
+
+You'll also need to change `ana_smflux.h` and other analytical scripts according to your needs. You can figure out what analytical scripts must be changed by looking at the active analytical functions in `winds_upwelling.h` or you can compile the model, which should return an error and indicating the error. For example:
 
 ```
 analytical.f90:1072:14:
@@ -199,3 +194,9 @@ You'll need to change analytical files that uses UPWELLING. Check for it by typi
 ```
 grep -r UPWELLING *h
 ```
+
+# Execute 
+```mpiexec -np 4 ./romsM winds_parallel.in```
+
+# Suggestion:
+Try to change the values in the boundary conditions (.in file) from Clo to Rad. What are the differences between the results?
