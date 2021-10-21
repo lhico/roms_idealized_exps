@@ -1,8 +1,5 @@
 # Experiment 05:
-This case consists of idealized stratified,fields with wind parallel (stress momentum flux) to
-the coast and tides.
-
-Set the model with an analytical initial condition with stratified fields and try it yourself.
+This case consists of vertically stratified,horizontally homogenous fields with a numerical grid set by the user, wind parallel (stress momentum flux) to the coast and tides.
 
 1. Set up the directory
 2. Set up build_roms.sh
@@ -15,11 +12,16 @@ to work with the .h files in the ``$PROJECT_PATH/functionals` directory (see bel
 the .h files requires a recompilation of the model.
 
 ## 1. Set up directory (we are renaming upwelling.h)
+We will recompile the model in an entire new directory:
 
 ```
-  PROJECT_PATH=/path/to/project
-  ROMS_HOME=/path/to/roms
-  cd ${ROMS_HOME}
+# create a directory
+  mkdir experiment02
+  cd experiment02
+
+  PROJECT_PATH=/path/to/project               #the directory we just created
+  ROMS_HOME=/path/to/roms/source/code/ROMS    #this is the ROMS directory inside the roms we downloaded with the svn
+  cd ${PROJECT_PATH}
 
   # the fortran files that configure analytical fields will  be copied here
   mkdir functionals  
@@ -55,8 +57,7 @@ export   ROMS_APPLICATION=simple_tides
 
 (...)
 export MY_ROOT_DIR=${HOME}/src_code    #src_code contains ROMS source code
-export     MY_PROJECT_DIR=${PWD}
-
+export MY_PROJECT_DIR=${PWD}
 (...)
 export       MY_ROMS_SRC=${MY_ROOT_DIR}
 (...)
@@ -65,7 +66,7 @@ export          USE_MPIF90=on            # compile with mpif90 script
 # export        which_MPI=mpich          # compile with MPICH library
 # export        which_MPI=mpich2         # compile with MPICH2 library
 # export        which_MPI=mvapich2       # compile with MVAPICH2 library
-# export        which_MPI=openmpi        # compile with OpenMPI library
+export        which_MPI=openmpi        # compile with OpenMPI library
 # export        USE_OpenM =on            # shared-memory parallelism
 
 export              FORT=gfortran
@@ -109,9 +110,18 @@ export MY_ANALYTICAL_DIR=${MY_PROJECT_DIR}/functionals
   (...)
   VARNAME = varinfo.dat
    (...)
-   Lm == 90            ! Number of I-direction INTERIOR RHO-points
-   Mm == 40            ! Number of J-direction INTERIOR RHO-points
-   N  == 27            ! Number of vertical levels
+   Lm == 22            ! Number of I-direction INTERIOR RHO-points
+   Mm == 45            ! Number of J-direction INTERIOR RHO-points
+   N  == 20            ! Number of vertical levels
+
+(...)
+
+  ! Domain decomposition parameters for serial, distributed-memory or
+  ! shared-memory configurations used to determine tile horizontal range
+  ! indices (Istr,Iend) and (Jstr,Jend), [1:Ngrids].
+
+    NtileI == 2                               ! I-direction partition
+    NtileJ == 2                               ! J-direction partition
 
    (...)
 
@@ -160,7 +170,7 @@ export MY_ANALYTICAL_DIR=${MY_PROJECT_DIR}/functionals
 
 
    (...)
-   GRDNAME == input/sbb_grid_roms.nc
+   GRDNAME == input/roms_grid00.nc
 ```
 
 ## 5. Set up analytical fields
@@ -170,3 +180,6 @@ I will not get into these details as simple_tides.h indicates what analytical fi
 
 ## 6. Changing horizontal viscosity values
 The real ocean is not organized into bins. One of our model limitiations is the ability to simulate sub grid scale processes. For this reason we need to adjust the viscosity valeus in the .in file. The .in keys you'll use depend on the c++configuration file .h. In this case we are using the `UV_VIS2` in winds_parallel.h, which means you'll need to change the `VISC2` in the .in file. A suggestion of how to scale this parameter is [here (Radiation Stresses)](https://www.myroms.org/wiki/Horizontal_Mixing). 
+
+# Execute 
+```mpiexec -np 4 ./romsM roms_upwelling.in```
