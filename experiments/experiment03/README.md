@@ -217,7 +217,7 @@ An easier way to solve this issue and run this test case is replacing any occurr
 ``` 
 cd experiments03/functionals
 
-sed -i 's/UPWELLING/WINDS_PARALLEL/g'
+sed -i 's/UPWELLING/WINDS_PARALLEL/g' *
 ```
 
 
