@@ -40,8 +40,8 @@ the .h files requires a recompilation of the model.
   cp -r ${ROMS_HOME}/Functionals/* $PROJECT_PATH/functionals
 
   # renaming files
-  mv roms_upwelling.in winds_parallel.in
-  mv upwelling.h roms_windsparallel.h
+  mv roms_upwelling.in roms_windsparallel.in
+  mv upwelling.h winds_parallel.h
 
 ```
 
