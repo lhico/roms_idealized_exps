@@ -94,6 +94,20 @@ export MY_ANALYTICAL_DIR=${MY_PROJECT_DIR}/functionals
   We are using the same grid from the upwelling with a non-analytical grid (experiment02). The difference now is we will set the values of the analytical stress momentum flux. Notice that a description of the different switches are found in the roms manual.
 
 
+  The following changes should be made:
+```
+  /* #define ANA_GRID */
+  #define MASKING
+```
+
+or 
+
+```
+  #undef ANA_GRID
+  #define MASKING
+```
+
+
 ## 4. Change wind_parallel.in
    I'm assuming you already created a roms grid and copied into the `input`. Here,  we are setting some physics in the boundary conditions (The energy should not accumulate at open boundary conditions, but we all know this is not always easy). Look for the documentation on boundary condition in the roms manual, roms forum and also the code itself for more informations.
 ```
