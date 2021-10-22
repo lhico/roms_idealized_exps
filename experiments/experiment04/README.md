@@ -19,8 +19,8 @@ the .h files requires a recompilation of the model.
 
 ```
     # create a directory
-  mkdir experiment02
-  cd experiment02
+  mkdir experiment04
+  cd experiment04
 
   PROJECT_PATH=/path/to/project               #the directory we just created
   ROMS_HOME=/path/to/roms/source/code/ROMS    #this is the ROMS directory inside the roms we downloaded with the svn
@@ -37,7 +37,7 @@ the .h files requires a recompilation of the model.
   cp ${ROMS_HOME}/External/roms_upwelling.in $PROJECT_PATH
   cp ${ROMS_HOME}/External/varinfo.dat       $PROJECT_PATH
   cp ${ROMS_HOME}/Include/upwelling.h        $PROJECT_PATH
-  cp ${ROMS_HOME}/User/Functionals/* $PROJECT_PATH/functionals
+  cp -r ${ROMS_HOME}/Functionals/* $PROJECT_PATH/functionals
 
   # renaming files
   mv roms_upwelling.in winds_parallel.in
@@ -48,8 +48,8 @@ the .h files requires a recompilation of the model.
 
 ## 2. Set up build_roms.sh
 
-The switch `$ROMS_APPLICATION` is used to define values in analytical fields.
-These fields are defined in scripts and you'll need to edit them and replace some
+IMPORTANT: The switch `$ROMS_APPLICATION` is used to define values in analytical fields. It is NOT simply the name of your application. Also, your c++ definition file (the .ht file) will be identified by this switch.
+You will need to edit the analytical files (`$PROJECT_PATH/functionals` directory) to your application. These fields are defined in scripts and you'll need to edit them and replace some
 values
 
 ```
@@ -60,7 +60,8 @@ export   ROMS_APPLICATION=WINDS_PARALLEL
 
 (...)
 export MY_ROOT_DIR=${HOME}/src_code    #src_code contains ROMS source code
-export     MY_PROJECT_DIR=${PWD}
+export MY_PROJECT_DIR=${PWD}
+export MY_ROMS_SRC=${MY_ROOT_DIR}
 
 (...)
 export       MY_ROMS_SRC=${MY_ROOT_DIR}
@@ -104,6 +105,16 @@ export MY_ANALYTICAL_DIR=${MY_PROJECT_DIR}/functionals
 ## 4. Change wind_parallel.in
    I'm assuming you already created a roms grid and copied into the `input`. Here,  we are setting some physics in the boundary conditions (The energy should not accumulate at open boundary conditions, but we all know this is not always easy). Look for the documentation on boundary condition in the roms manual, roms forum and also the code itself for more informations. I set up a case that should work in our example (no tides, only winds!). Since we are nudging the free-surface (FS), we also need to set the nudging/relaxation time scales. You should look in the forum and manual to figure out how does the nudging time scales work.
 ```
+! Application title.
+
+  TITLE = experiment: Wind parallel to the coast
+
+! C-preprocessing Flag.
+
+    MyAppCPP = WINDS_PARALLEL  ! this is just a name and doesn't
+
+
+
   (...)
   VARNAME = varinfo.dat
    (...)
