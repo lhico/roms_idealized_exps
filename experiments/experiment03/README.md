@@ -38,7 +38,7 @@ the .h files requires a recompilation of the model.
   cp ${ROMS_HOME}/External/roms_upwelling.in $PROJECT_PATH
   cp ${ROMS_HOME}/External/varinfo.dat       $PROJECT_PATH
   cp ${ROMS_HOME}/Include/upwelling.h        $PROJECT_PATH
-  cp ${ROMS_HOME}/Functionals/* $PROJECT_PATH/functionals
+  cp -r ${ROMS_HOME}/Functionals/* $PROJECT_PATH/functionals
 
   # renaming files
   mv roms_upwelling.in roms_windsparallel.in
