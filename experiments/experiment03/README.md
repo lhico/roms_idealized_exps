@@ -212,6 +212,15 @@ You'll need to change analytical files that uses UPWELLING. Check for it by typi
 grep -r UPWELLING *h
 ```
 
+An easier way to solve this issue and run this test case is replacing any occurrence of 'UPWELLING' for your application's name. Try this:
+
+``` 
+cd experiments03/functionals
+
+sed -i 's/UPWELLING/WINDS_PARALLEL/g'
+```
+
+
 # Execute 
 ```mpiexec -np 4 ./romsM roms_windsparallel.in```
 
