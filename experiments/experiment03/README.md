@@ -20,12 +20,9 @@ the .h files requires a recompilation of the model.
   mkdir experiment03
   cd experiment03
 
-  # there is a ROMS directory inside the source code dir
-  PROJECT_PATH=/path/to/roms/source/code/ROMS
-  
-  # inside experiment03
-  ROMS_HOME=/path/to/roms
-  cd ${ROMS_HOME}
+  PROJECT_PATH=/path/to/project               #the directory we just created
+  ROMS_HOME=/path/to/roms/source/code/ROMS    #this is the ROMS directory inside the roms we downloaded with the svn
+  cd ${PROJECT_PATH}
 
   # the fortran files that configure analytical fields will  be copied here
   mkdir functionals  
