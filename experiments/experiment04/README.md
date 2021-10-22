@@ -191,5 +191,64 @@ The vertical stretching parameters are set while building the grid.
 I will not get into these details as winds_parallel.h indicates what analytical fields require adjustments.
 You can take the analytical stratification from the upwelling case in `src_code/ROMS/Functionals/ana_initial.h`
 
+
+## 5. Set up analytical fields
+
+Try to compile the model:
+
+```
+./build_roms.sh  ! use sudo if necessary
+```
+
+An error related to analytical files should be thrown. This shows up because the analytical files need to be configured. Let's understand what is going on.
+
+### 5.1 Fortran switches
+ The command `export   ROMS_APPLICATION=WINDS_PARALLEL` sets a switch used in the fortran scripts in `$PROJECT_PATH/functionals`. By changing this switch, you need to modify these functions. The following code snippet from `ana_smflux.h` exemplifies how the switch work (we added the switch at an appropriate location):
+
+```
+!-----------------------------------------------------------------------
+!  Set kinematic surface momentum flux (wind stress) component in the
+!  XI-direction (m2/s2) at horizontal U-points.
+!-----------------------------------------------------------------------
+!
+(...)
+#elif defined MY_APPLICATION
+      DO j=JstrT,JendT
+        DO i=IstrP,IendT
+          sustr(i,j)=???
+        END DO
+      END DO
+#endif
+```
+
+Let's say `export $ROMS_APPLICATION=MY_APPLICATION` is defined in the build script. If it is defined, the `#if  defined MY_APPLICATION` condition will select the loop that will be compiled and ignore the other one (since we have a `???` value, the compilation will fail, as a value needs to be set).
+
+[HERE](https://www.myroms.org/forum/viewtopic.php?t=4938) you can find some information on the kinematic surface momentum flux.
+
+You'll also need to change `ana_smflux.h` and other analytical scripts according to your needs. You can figure out what analytical scripts must be changed by looking at the active analytical functions in `winds_upwelling.h` or you can compile the model, which should return an error and indicating the error. For example:
+
+```
+analytical.f90:1072:14:
+
+       ana_vmix.h: no values provided for Akv.
+              1
+Error: 'ana_vmix' at (1) is not a variable
+analytical.f90:1091:14:
+
+       ana_vmix.h: no values provided for Akt.
+              1
+Error: 'ana_vmix' at (1) is not a variable
+ROMS/Functionals/Module.mk:15: recipe for target '/home/lhico/projects/experiments/experiment03/Build_roms/analytical.o' failed
+make: *** [/home/lhico/projects/experiments/experiment03/Build_roms/analytical.o] Error 1
+```
+
+The examples are present in the following directory: `${ROMS_HOME}/ROMS/Functionals`
+
+You'll need to change analytical files that uses UPWELLING. Check for it by typing (in the functioinals directory):
+
+```
+grep -r UPWELLING *h
+```
+
 # Execute 
-```mpiexec -np 4 ./romsM roms_upwelling.in```
+```mpiexec -np 4 ./romsM winds_parallel.in```
