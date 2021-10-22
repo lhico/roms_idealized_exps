@@ -213,7 +213,7 @@ grep -r UPWELLING *h
 ```
 
 # Execute 
-```mpiexec -np 4 ./romsM winds_parallel.in```
+```mpiexec -np 4 ./romsM roms_windsparallel.in```
 
 # Suggestion:
 Try to change the values in the boundary conditions (.in file) from Clo to Rad. What are the differences between the results?
