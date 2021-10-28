@@ -20,6 +20,7 @@ The instructions for each experiment are located at the README.md at each direct
 * experiment03 - understanding analytic files: changing the idealized wind fields
 * experiment04 - introduction to boundary conditions: idealized stratified fields, 'wind' parallel to the coast.
 * experiment05 - including tide forcing: changing boundary conditions and dealing with horizontal viscosity parameterization
+* experiment06 - includes realistic initial and boundary condition
 
 
 ## 1. Usage
@@ -32,4 +33,5 @@ git clone https://github.com/lhico/roms_idealized_exps
 ```
 
 Each experiment has its own README.md with instructions to build and run the experiment.
+
 
