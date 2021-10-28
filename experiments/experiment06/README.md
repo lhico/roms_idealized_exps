@@ -110,7 +110,13 @@ export MY_ANALYTICAL_DIR=${MY_PROJECT_DIR}/functionals
 ```
 
 ## 4. Change roms_realistic_ic.in
-   I'm assuming you already created a roms grid/initical condition/boundary file and copied into the `input`. Here,  we are setting some physics in the boundary conditions (The energy should not accumulate at open boundary conditions, but we all know this is not always easy). Look for the documentation on boundary condition in the roms manual, roms forum and also the code itself for more informations. I set up a case that should work in our example (no tides, only winds!). 
+   I'm assuming you already created a roms grid/initical condition/boundary file and copied into the `input`. Here,  we are setting some physics in the boundary conditions (The energy should not accumulate at open boundary conditions, but we all know this is not always easy). Look for the documentation on boundary condition in the roms manual, roms forum and also the code itself for more informations. I set up a case that should work in our example (no tides, only winds!).
+
+   **ATTENTION**: I haven't configured the horizontal values of interior rho-points. Figure it out by checking the gridfile netcdf.
+
+
+  You can find the Lm and Mm values by checking the dimensions `xi_rho` and `eta_rho` and subtract 2 from each. You can use the command `ncdump -h roms_grid00.nc` to get the dimensions.
+  The vertical stretching parameters are set while building the grid.
 
 ```
 ! Application title.
@@ -169,8 +175,6 @@ export MY_ANALYTICAL_DIR=${MY_PROJECT_DIR}/functionals
    (...)
 ```
 
-You can find the Lm and Mm values by checking the dimensions `xi_rho` and `eta_rho` and subtract 2 from each. You can use the command `ncdump -h roms_grid00.nc` to get the dimensions.
-The vertical stretching parameters are set while building the grid.
 ## 5. Set up analytical fields
 ### 5.1 Fortran switches
 I will not get into these details as winds_parallel.h indicates what analytical fields require adjustments.
