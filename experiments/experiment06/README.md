@@ -1,5 +1,5 @@
-# Experiment 04:
-This case consists of realistic initial & boundary conditions with wind parallel to the coast.
+# Experiment 06:
+This case consists of realistic initial & boundary conditions with wind parallel to the coast. We will include external netcdf files at the appropriate locations.
 
 ## Summary
 
@@ -92,7 +92,7 @@ export MY_ANALYTICAL_DIR=${MY_PROJECT_DIR}/functionals
   
   Here we are using the following boundary condition switches: `Rad` and `RadNud`; The forum and the manual advise the use `Rad` with `#define RADIATION_2D` flag, while the 'RadNud' switch requires information either from input fields or from files with analytical conditions, which are supplied by the `#define ANA_FSOBC` and  `#define ANA_M2OBC`.
 
-  Notice that GLS_MIXING has also been added. Looc at the .h file - by choosing this option the #ANA_VMIX key is automatically ignored.
+  Notice that GLS_MIXING has also been added. Look at the .h file - by choosing this option the #ANA_VMIX key is automatically ignored.
 
 ```
 #define MASKING
@@ -173,7 +173,43 @@ export MY_ANALYTICAL_DIR=${MY_PROJECT_DIR}/functionals
      ININAME == input/pbs_202109_glorys_pbs_202109_glorys_ic.nc
 
    (...)
+
+    BRYNAME == input/pbs_202109_glorys_bdry_2019-08-01T12:00:00.nc |
+            input/pbs_202109_smooth_bdry_2019-08-02T12:00:00.nc |
+            input/pbs_202109_smooth_bdry_2019-08-03T12:00:00.nc |
+            input/pbs_202109_smooth_bdry_2019-08-04T12:00:00.nc |
+            input/pbs_202109_smooth_bdry_2019-08-05T12:00:00.nc |
+            input/pbs_202109_smooth_bdry_2019-08-06T12:00:00.nc |
+            input/pbs_202109_smooth_bdry_2019-08-07T12:00:00.nc |
+            input/pbs_202109_smooth_bdry_2019-08-08T12:00:00.nc |
+            input/pbs_202109_smooth_bdry_2019-08-09T12:00:00.nc |
+            input/pbs_202109_smooth_bdry_2019-08-10T12:00:00.nc |
+            input/pbs_202109_smooth_bdry_2019-08-11T12:00:00.nc |
+            input/pbs_202109_smooth_bdry_2019-08-12T12:00:00.nc |
+            input/pbs_202109_smooth_bdry_2019-08-13T12:00:00.nc |
+            input/pbs_202109_smooth_bdry_2019-08-14T12:00:00.nc |
+            input/pbs_202109_smooth_bdry_2019-08-15T12:00:00.nc |
+            input/pbs_202109_smooth_bdry_2019-08-16T12:00:00.nc |
+            input/pbs_202109_smooth_bdry_2019-08-17T12:00:00.nc |
+            input/pbs_202109_smooth_bdry_2019-08-18T12:00:00.nc |
+            input/pbs_202109_smooth_bdry_2019-08-19T12:00:00.nc |
+            input/pbs_202109_smooth_bdry_2019-08-20T12:00:00.nc |
+            input/pbs_202109_smooth_bdry_2019-08-21T12:00:00.nc |
+            input/pbs_202109_smooth_bdry_2019-08-22T12:00:00.nc |
+            input/pbs_202109_smooth_bdry_2019-08-23T12:00:00.nc |
+            input/pbs_202109_smooth_bdry_2019-08-24T12:00:00.nc |
+            input/pbs_202109_smooth_bdry_2019-08-25T12:00:00.nc |
+            input/pbs_202109_smooth_bdry_2019-08-26T12:00:00.nc |
+            input/pbs_202109_smooth_bdry_2019-08-27T12:00:00.nc |
+            input/pbs_202109_smooth_bdry_2019-08-28T12:00:00.nc |
+            input/pbs_202109_smooth_bdry_2019-08-29T12:00:00.nc |
+            input/pbs_202109_smooth_bdry_2019-08-30T12:00:00.nc |
+            input/pbs_202109_smooth_bdry_2019-08-31T12:00:00.nc |
+            input/pbs_202109_smooth_bdry_2019-09-01T12:00:00.nc
+
 ```
+
+You may need to adjust the dimensions names in varinfo.dat, depending on the input files you use.
 
 ## 5. Set up analytical fields
 ### 5.1 Fortran switches
@@ -214,7 +250,7 @@ Let's say `export $ROMS_APPLICATION=MY_APPLICATION` is defined in the build scri
 
 [HERE](https://www.myroms.org/forum/viewtopic.php?t=4938) you can find some information on the kinematic surface momentum flux.
 
-You'll also need to change `ana_smflux.h` and other analytical scripts according to your needs. You can figure out what analytical scripts must be changed by looking at the active analytical functions in `winds_upwelling.h` or you can compile the model, which should return an error and indicating the error. For example:
+You'll also need to change `ana_smflux.h` and other analytical scripts according to your needs. You can figure out what analytical scripts must be changed by looking at the active analytical functions in `realistic_ic.h.h` or you can compile the model, which should return an error and indicating the error. For example (when we don't set #GLS_MIXING in the .h):
 
 ```
 analytical.f90:1072:14:
