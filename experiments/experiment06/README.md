@@ -211,11 +211,6 @@ export MY_ANALYTICAL_DIR=${MY_PROJECT_DIR}/functionals
 
 You may need to adjust the dimensions names in varinfo.dat, depending on the input files you use.
 
-## 5. Set up analytical fields
-### 5.1 Fortran switches
-I will not get into these details as winds_parallel.h indicates what analytical fields require adjustments.
-You can take the analytical stratification from the upwelling case in `src_code/ROMS/Functionals/ana_initial.h`
-
 
 ## 5. Set up analytical fields
 
@@ -225,7 +220,7 @@ Try to compile the model:
 ./build_roms.sh  ! use sudo if necessary
 ```
 
-An error related to analytical files should be thrown. This shows up because the analytical files need to be configured. Let's understand what is going on.
+An error related to analytical files should not be thrown. If it is, some analytical files need to be configured, as you know.
 
 ### 5.1 Fortran switches
  The command `export   ROMS_APPLICATION=WINDS_PARALLEL` sets a switch used in the fortran scripts in `$PROJECT_PATH/functionals`. By changing this switch, you need to modify these functions. The following code snippet from `ana_smflux.h` exemplifies how the switch work (we added the switch at an appropriate location):
@@ -273,6 +268,14 @@ You'll need to change analytical files that uses UPWELLING. Check for it by typi
 
 ```
 grep -r UPWELLING *h
+```
+
+An easier way to solve this issue and run this test case is replacing any occurrence of 'UPWELLING' for your application's name. Try this:
+
+``` 
+cd experiments03/functionals
+
+sed -i 's/UPWELLING/WINDS_PARALLEL/g' *
 ```
 
 # Execute 
