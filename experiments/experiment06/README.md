@@ -156,12 +156,12 @@ export MY_ANALYTICAL_DIR=${MY_PROJECT_DIR}/functionals
    (...)
    # boundary conditions: check the .in for more details
 
-   LBC(isFsur) ==   Clo     Che     Che     Che         ! free-surface
-   LBC(isUbar) ==   Clo     Fla     Fla     Fla         ! 2D U-momentum
-   LBC(isVbar) ==   Clo     Fla     Fla     Fla         ! 2D V-momentum
+   LBC(isFsur) ==   Clo     Che        Che        Che         ! free-surface
+   LBC(isUbar) ==   Clo     Fla        Fla        Fla         ! 2D U-momentum
+   LBC(isVbar) ==   Clo     Fla        Fla        Fla         ! 2D V-momentum
    LBC(isUvel) ==   Clo     RadNud     RadNud     RadNud         ! 3D U-momentum
    LBC(isVvel) ==   Clo     RadNud     RadNud     RadNud         ! 3D V-momentum
-   LBC(isMtke) ==   Clo     Clo     Clo     Clo         ! mixing TKE
+   LBC(isMtke) ==   Clo     Clo        Clo        Clo         ! mixing TKE
 
    LBC(isTvar) ==   Clo     RadNud     RadNud     RadNud \       ! temperature
                     Clo     RadNud     RadNud     RadNud         ! salinity
