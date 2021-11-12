@@ -88,24 +88,106 @@ export MY_ANALYTICAL_DIR=${MY_PROJECT_DIR}/functionals
 
 
 ## 3. Set up realistic_ic.h
-  We are using the same grid from the upwelling with a non-analytical grid and realistic initial and boundary conditions. Notice that a description of the different switches are found in the roms manual.
-  
-  Here we are using the following boundary condition switches: `Rad` and `RadNud`; The forum and the manual advise the use `Rad` with `#define RADIATION_2D` flag, while the 'RadNud' switch requires information either from input fields or from files with analytical conditions, which are supplied by the `#define ANA_FSOBC` and  `#define ANA_M2OBC`.
+  We will replace all cppdef keys in the .h. Simply replace the information below in realistic_ic.h
 
-  Notice that GLS_MIXING has also been added. Look at the .h file - by choosing this option the #ANA_VMIX key is automatically ignored.
+  Notice that LMD_MIXING has also been added. Look at the .h file - by choosing this option the #ANA_VMIX key is automatically ignored.
 
 ```
+#define UV_ADV
+#define UV_COR
+#define UV_LDRAG
+#define UV_VIS2
+#undef  MIX_GEO_UV
+#define MIX_S_UV
+#define SPLINES_VDIFF
+#define SPLINES_VVISC
+#define DJ_GRADPS
+#define TS_DIF2
+#undef  TS_DIF4
+#undef  MIX_GEO_TS
+#define MIX_S_TS
 #define MASKING
-/* #define ANA_GRID */
+#define TS_FIXED
+
+#define SALINITY
+#define SOLVE3D
+#define AVERAGES
+#define DIAGNOSTICS_TS
+#define DIAGNOSTICS_UV
+
 #undef ANA_GRID
 #undef ANA_INITIAL
-
+#define ANA_SMFLUX
+#define ANA_STFLUX
+#define ANA_SSFLUX
+#define ANA_BTFLUX
+#define ANA_BSFLUX
 
 #define ANA_FSOBC
 #define ANA_M2OBC
 #define RADIATION_2D
+#undef GLS_MIXING
 
-#define GLS_MIXING
+# define LMD_MIXING
+# ifdef LMD_MIXING
+# define LMD_RIMIX
+# define LMD_CONVEC
+# define LMD_SKPP
+# undef LMD_BKPP
+# define LMD_NONLOCAL
+# define LMD_SHAPIRO
+# undef LMD_DDMIX
+# endif
+
+
+# define ATM_PRESS 
+/* # define CCSM_FLUXES */
+/* #define ANA_INITIAL */
+
+# define BULK_FLUXES
+# define QCORRECTION  /*used to correct heat fluxes */
+# define ANA_BSFLUX
+# define ANA_BTFLUX
+# define ANA_STFLUX
+# define ANA_SSFLUX
+# define ANA_RAIN
+
+
+#if defined GLS_MIXING || defined MY25_MIXING || defined LMD_MIXING
+# define KANTHA_CLAYSON
+# define N2S2_HORAVG
+# define RI_SPLINES
+#else
+# define ANA_VMIX
+#endif
+
+#if defined BIO_FENNEL  || defined ECOSIM || \
+    defined NPZD_POWELL || defined NEMURO
+# define ANA_BIOLOGY
+# define ANA_SPFLUX
+# define ANA_BPFLUX
+# define ANA_SRFLUX
+#endif
+
+#if defined NEMURO
+# define HOLLING_GRAZING
+# undef  IVLEV_EXPLICIT
+#endif
+
+#ifdef BIO_FENNEL
+# define CARBON
+# define DENITRIFICATION
+# define BIO_SEDIMENT
+# define DIAGNOSTICS_BIO
+#endif
+
+#ifdef PERFECT_RESTART
+# undef  AVERAGES
+# undef  DIAGNOSTICS_BIO
+# undef  DIAGNOSTICS_TS
+# undef  DIAGNOSTICS_UV
+# define OUT_DOUBLE
+#endif
 
 
 
@@ -171,7 +253,7 @@ export MY_ANALYTICAL_DIR=${MY_PROJECT_DIR}/functionals
 
    (...)
 
-     GRDNAME == input/roms_grd00.nc
+     GRDNAME == input/roms_grid00.nc
      ININAME == input/pbs_202109_glorys_pbs_202109_glorys_ic.nc
 
    (...)
@@ -301,4 +383,4 @@ sed -i 's/UPWELLING/WINDS_PARALLEL/g' *
 ```
 
 # Execute 
-```mpiexec -np 4 ./romsM roms_windsparallel.in```
+```mpiexec -np 4 ./romsM roms_realistic_ic.in```
