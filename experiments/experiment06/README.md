@@ -259,37 +259,37 @@ export MY_ANALYTICAL_DIR=${MY_PROJECT_DIR}/functionals
    (...)
 
     BRYNAME == input/pbs_202109_glorys_bdry_2019-08-01T12:00:00.nc |
-            input/pbs_202109_smooth_bdry_2019-08-02T12:00:00.nc |
-            input/pbs_202109_smooth_bdry_2019-08-03T12:00:00.nc |
-            input/pbs_202109_smooth_bdry_2019-08-04T12:00:00.nc |
-            input/pbs_202109_smooth_bdry_2019-08-05T12:00:00.nc |
-            input/pbs_202109_smooth_bdry_2019-08-06T12:00:00.nc |
-            input/pbs_202109_smooth_bdry_2019-08-07T12:00:00.nc |
-            input/pbs_202109_smooth_bdry_2019-08-08T12:00:00.nc |
-            input/pbs_202109_smooth_bdry_2019-08-09T12:00:00.nc |
-            input/pbs_202109_smooth_bdry_2019-08-10T12:00:00.nc |
-            input/pbs_202109_smooth_bdry_2019-08-11T12:00:00.nc |
-            input/pbs_202109_smooth_bdry_2019-08-12T12:00:00.nc |
-            input/pbs_202109_smooth_bdry_2019-08-13T12:00:00.nc |
-            input/pbs_202109_smooth_bdry_2019-08-14T12:00:00.nc |
-            input/pbs_202109_smooth_bdry_2019-08-15T12:00:00.nc |
-            input/pbs_202109_smooth_bdry_2019-08-16T12:00:00.nc |
-            input/pbs_202109_smooth_bdry_2019-08-17T12:00:00.nc |
-            input/pbs_202109_smooth_bdry_2019-08-18T12:00:00.nc |
-            input/pbs_202109_smooth_bdry_2019-08-19T12:00:00.nc |
-            input/pbs_202109_smooth_bdry_2019-08-20T12:00:00.nc |
-            input/pbs_202109_smooth_bdry_2019-08-21T12:00:00.nc |
-            input/pbs_202109_smooth_bdry_2019-08-22T12:00:00.nc |
-            input/pbs_202109_smooth_bdry_2019-08-23T12:00:00.nc |
-            input/pbs_202109_smooth_bdry_2019-08-24T12:00:00.nc |
-            input/pbs_202109_smooth_bdry_2019-08-25T12:00:00.nc |
-            input/pbs_202109_smooth_bdry_2019-08-26T12:00:00.nc |
-            input/pbs_202109_smooth_bdry_2019-08-27T12:00:00.nc |
-            input/pbs_202109_smooth_bdry_2019-08-28T12:00:00.nc |
-            input/pbs_202109_smooth_bdry_2019-08-29T12:00:00.nc |
-            input/pbs_202109_smooth_bdry_2019-08-30T12:00:00.nc |
-            input/pbs_202109_smooth_bdry_2019-08-31T12:00:00.nc |
-            input/pbs_202109_smooth_bdry_2019-09-01T12:00:00.nc
+            input/pbs_202109_glorys_bdry_2019-08-02T12:00:00.nc |
+            input/pbs_202109_glorys_bdry_2019-08-03T12:00:00.nc |
+            input/pbs_202109_glorys_bdry_2019-08-04T12:00:00.nc |
+            input/pbs_202109_glorys_bdry_2019-08-05T12:00:00.nc |
+            input/pbs_202109_glorys_bdry_2019-08-06T12:00:00.nc |
+            input/pbs_202109_glorys_bdry_2019-08-07T12:00:00.nc |
+            input/pbs_202109_glorys_bdry_2019-08-08T12:00:00.nc |
+            input/pbs_202109_glorys_bdry_2019-08-09T12:00:00.nc |
+            input/pbs_202109_glorys_bdry_2019-08-10T12:00:00.nc |
+            input/pbs_202109_glorys_bdry_2019-08-11T12:00:00.nc |
+            input/pbs_202109_glorys_bdry_2019-08-12T12:00:00.nc |
+            input/pbs_202109_glorys_bdry_2019-08-13T12:00:00.nc |
+            input/pbs_202109_glorys_bdry_2019-08-14T12:00:00.nc |
+            input/pbs_202109_glorys_bdry_2019-08-15T12:00:00.nc |
+            input/pbs_202109_glorys_bdry_2019-08-16T12:00:00.nc |
+            input/pbs_202109_glorys_bdry_2019-08-17T12:00:00.nc |
+            input/pbs_202109_glorys_bdry_2019-08-18T12:00:00.nc |
+            input/pbs_202109_glorys_bdry_2019-08-19T12:00:00.nc |
+            input/pbs_202109_glorys_bdry_2019-08-20T12:00:00.nc |
+            input/pbs_202109_glorys_bdry_2019-08-21T12:00:00.nc |
+            input/pbs_202109_glorys_bdry_2019-08-22T12:00:00.nc |
+            input/pbs_202109_glorys_bdry_2019-08-23T12:00:00.nc |
+            input/pbs_202109_glorys_bdry_2019-08-24T12:00:00.nc |
+            input/pbs_202109_glorys_bdry_2019-08-25T12:00:00.nc |
+            input/pbs_202109_glorys_bdry_2019-08-26T12:00:00.nc |
+            input/pbs_202109_glorys_bdry_2019-08-27T12:00:00.nc |
+            input/pbs_202109_glorys_bdry_2019-08-28T12:00:00.nc |
+            input/pbs_202109_glorys_bdry_2019-08-29T12:00:00.nc |
+            input/pbs_202109_glorys_bdry_2019-08-30T12:00:00.nc |
+            input/pbs_202109_glorys_bdry_2019-08-31T12:00:00.nc |
+            input/pbs_202109_glorys_bdry_2019-09-01T12:00:00.nc
 
 (...)
 
