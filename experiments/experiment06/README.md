@@ -16,30 +16,30 @@ the .h files requires a recompilation of the model.
 ## 1. Set up directory (we are renaming upwelling.h)
 
 ```
-    # create a directory
-  mkdir experiment06
-  cd experiment06
+# create a directory
+mkdir experiment06
+cd experiment06
 
-  PROJECT_PATH=/path/to/project               #the directory we just created
-  ROMS_HOME=/path/to/roms/source/code/ROMS    #this is the ROMS directory inside the roms we downloaded with the svn
-  cd ${PROJECT_PATH}
+PROJECT_PATH=/path/to/project               #the directory we just created
+ROMS_HOME=/path/to/roms/source/code/ROMS    #this is the ROMS directory inside the roms we downloaded with the svn
+cd ${PROJECT_PATH}
 
-  # the fortran files that configure analytical fields will  be copied here
-  mkdir functionals  
+# the fortran files that configure analytical fields will  be copied here
+mkdir functionals  
 
-  # we are creating an input dir to keep things organized
-  mkdir input
+# we are creating an input dir to keep things organized
+mkdir input
 
-  # set directories
-  cp ${ROMS_HOME}/Bin/build_roms.sh          $PROJECT_PATH
-  cp ${ROMS_HOME}/External/roms_upwelling.in $PROJECT_PATH
-  cp ${ROMS_HOME}/External/varinfo.dat       $PROJECT_PATH
-  cp ${ROMS_HOME}/Include/upwelling.h        $PROJECT_PATH
-  cp -r ${ROMS_HOME}/Functionals/* $PROJECT_PATH/functionals
+# set directories
+cp ${ROMS_HOME}/Bin/build_roms.sh          $PROJECT_PATH
+cp ${ROMS_HOME}/External/roms_upwelling.in $PROJECT_PATH
+cp ${ROMS_HOME}/External/varinfo.dat       $PROJECT_PATH
+cp ${ROMS_HOME}/Include/upwelling.h        $PROJECT_PATH
+cp -r ${ROMS_HOME}/Functionals/* $PROJECT_PATH/functionals
 
-  # renaming files
-  mv roms_upwelling.in roms_realistic_ic.in
-  mv upwelling.h realistic_ic.h
+# renaming files
+mv roms_upwelling.in roms_realistic_ic.in
+mv upwelling.h realistic_ic.h
 
 ```
 
@@ -107,10 +107,12 @@ export MY_ANALYTICAL_DIR=${MY_PROJECT_DIR}/functionals
 
 #define GLS_MIXING
 
+
+
 ```
 
 ## 4. Change roms_realistic_ic.in
-   I'm assuming you already created a roms grid/initical condition/boundary file and copied into the `input`. Here,  we are setting some physics in the boundary conditions (The energy should not accumulate at open boundary conditions, but we all know this is not always easy). Look for the documentation on boundary condition in the roms manual, roms forum and also the code itself for more informations. I set up a case that should work in our example (no tides, only winds!).
+   I'm assuming you already created a roms grid/initical condition/boundary/surface forcing files and copied into the `input`. Here,  we are setting some physics in the boundary conditions (The energy should not accumulate at open boundary conditions, but we all know this is not always easy). Look for the documentation on boundary condition in the roms manual, roms forum and also the code itself for more informations. I set up a case that should work in our example (no tides, only winds!).
 
    **ATTENTION**: I haven't configured the horizontal values of interior rho-points. Figure it out by checking the gridfile netcdf.
 
@@ -154,15 +156,15 @@ export MY_ANALYTICAL_DIR=${MY_PROJECT_DIR}/functionals
    (...)
    # boundary conditions: check the .in for more details
 
-   LBC(isFsur) ==   Clo     Rad     Rad     Rad         ! free-surface
-   LBC(isUbar) ==   Clo     Rad     Rad     Rad         ! 2D U-momentum
-   LBC(isVbar) ==   Clo     Rad     Rad     Rad         ! 2D V-momentum
-   LBC(isUvel) ==   Clo     Rad     Rad     Rad         ! 3D U-momentum
-   LBC(isVvel) ==   Clo     Rad     Rad     Rad         ! 3D V-momentum
+   LBC(isFsur) ==   Clo     Che     Che     Che         ! free-surface
+   LBC(isUbar) ==   Clo     Fla     Fla     Fla         ! 2D U-momentum
+   LBC(isVbar) ==   Clo     Fla     Fla     Fla         ! 2D V-momentum
+   LBC(isUvel) ==   Clo     RadNud     RadNud     RadNud         ! 3D U-momentum
+   LBC(isVvel) ==   Clo     RadNud     RadNud     RadNud         ! 3D V-momentum
    LBC(isMtke) ==   Clo     Clo     Clo     Clo         ! mixing TKE
 
-   LBC(isTvar) ==   Clo     Rad     Rad     Rad \       ! temperature
-                    Clo     Rad     Rad     Rad         ! salinity
+   LBC(isTvar) ==   Clo     RadNud     RadNud     RadNud \       ! temperature
+                    Clo     RadNud     RadNud     RadNud         ! salinity
 
 
 
@@ -207,6 +209,42 @@ export MY_ANALYTICAL_DIR=${MY_PROJECT_DIR}/functionals
             input/pbs_202109_smooth_bdry_2019-08-31T12:00:00.nc |
             input/pbs_202109_smooth_bdry_2019-09-01T12:00:00.nc
 
+(...)
+
+NFFILES == 1                           ! number of unique forcing files
+
+FRCNAME == input/era5_2019-08-01T00:00:00.nc |
+           input/era5_2019-08-02T00:00:00.nc |
+           input/era5_2019-08-03T00:00:00.nc |
+           input/era5_2019-08-04T00:00:00.nc |
+           input/era5_2019-08-05T00:00:00.nc |
+           input/era5_2019-08-06T00:00:00.nc |
+           input/era5_2019-08-07T00:00:00.nc |
+           input/era5_2019-08-08T00:00:00.nc |
+           input/era5_2019-08-09T00:00:00.nc |
+           input/era5_2019-08-10T00:00:00.nc |
+           input/era5_2019-08-11T00:00:00.nc |
+           input/era5_2019-08-12T00:00:00.nc |
+           input/era5_2019-08-13T00:00:00.nc |
+           input/era5_2019-08-14T00:00:00.nc |
+           input/era5_2019-08-15T00:00:00.nc |
+           input/era5_2019-08-16T00:00:00.nc |
+           input/era5_2019-08-17T00:00:00.nc |
+           input/era5_2019-08-18T00:00:00.nc |
+           input/era5_2019-08-19T00:00:00.nc |
+           input/era5_2019-08-20T00:00:00.nc |
+           input/era5_2019-08-21T00:00:00.nc |
+           input/era5_2019-08-22T00:00:00.nc |
+           input/era5_2019-08-23T00:00:00.nc |
+           input/era5_2019-08-24T00:00:00.nc |
+           input/era5_2019-08-25T00:00:00.nc |
+           input/era5_2019-08-26T00:00:00.nc |
+           input/era5_2019-08-27T00:00:00.nc |
+           input/era5_2019-08-28T00:00:00.nc |
+           input/era5_2019-08-29T00:00:00.nc |
+           input/era5_2019-08-30T00:00:00.nc |
+           input/era5_2019-08-31T00:00:00.nc
+
 ```
 
 You may need to adjust the dimensions names in varinfo.dat, depending on the input files you use.
@@ -245,24 +283,8 @@ Let's say `export $ROMS_APPLICATION=MY_APPLICATION` is defined in the build scri
 
 [HERE](https://www.myroms.org/forum/viewtopic.php?t=4938) you can find some information on the kinematic surface momentum flux.
 
-You'll also need to change `ana_smflux.h` and other analytical scripts according to your needs. You can figure out what analytical scripts must be changed by looking at the active analytical functions in `realistic_ic.h.h` or you can compile the model, which should return an error and indicating the error. For example (when we don't set #GLS_MIXING in the .h):
-
-```
-analytical.f90:1072:14:
-
-       ana_vmix.h: no values provided for Akv.
-              1
-Error: 'ana_vmix' at (1) is not a variable
-analytical.f90:1091:14:
-
-       ana_vmix.h: no values provided for Akt.
-              1
-Error: 'ana_vmix' at (1) is not a variable
-ROMS/Functionals/Module.mk:15: recipe for target '/home/lhico/projects/experiments/experiment03/Build_roms/analytical.o' failed
-make: *** [/home/lhico/projects/experiments/experiment03/Build_roms/analytical.o] Error 1
-```
-
-The examples are present in the following directory: `${ROMS_HOME}/ROMS/Functionals`
+You'll also need to change `ana_smflux.h` and other analytical scripts according to your needs. You can figure out what analytical scripts must be changed by looking at the active analytical functions in `realistic_ic.h.h` or you can compile the model, which should return an error and indicating the error. 
+The examples are in the following directory: `${ROMS_HOME}/ROMS/Functionals`
 
 You'll need to change analytical files that uses UPWELLING. Check for it by typing (in the functioinals directory):
 
