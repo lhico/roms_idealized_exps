@@ -46,7 +46,7 @@ mv varinfo.dat varinfo.dat.bk
 
 **ATTENTION!!!**
 
-Download varinfo.dat FROM the repository (experiment06) and compare it with varinfo.dat.bk . I adjusted some dimensions names in varinfo.dat to cope with dimensions names of the boundary files; Something you can use is `vimdiff`. The main thing in this experiment is to adjust the dimension names related to boundary conditions variables (`*_east`, `*_west`, `*_south`, `*_north`), but you may need to adjust other variables as well. 
+Download varinfo.dat FROM the repository (experiment06) and compare it with varinfo.dat.bk . I adjusted some dimensions names in varinfo.dat to cope with dimensions names of the boundary files; Something you can use is `vimdiff`. The main thing in this experiment is to adjust the dimension names associated with time in boundary conditions variables (`*_east`, `*_west`, `*_south`, `*_north`) to `ocean_time`. For instance `v3d_time` should be changed to `ocean_time`. (this part may need further adjustments)
 
 ```
 vimdiff varinfo.dat varinfo.dat.bk
