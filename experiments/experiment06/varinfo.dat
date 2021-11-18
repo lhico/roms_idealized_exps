@@ -1215,7 +1215,7 @@
   '3D u-momentum western boundary condition'
   'meter second-1'                                 ! [m/s]
   'u_west, scalar, series'
-  'v3d_time'
+  'ocean_time'
   'idU3bc(iwest)'
   'nulvar'
   1.0d0
@@ -1224,7 +1224,7 @@
   '3D u-momentum eastern boundary condition'
   'meter second-1'                                 ! [m/s]
   'u_east, scalar, series'
-  'v3d_time'
+  'ocean_time'
   'idU3bc(ieast)'
   'nulvar'
   1.0d0
@@ -1233,7 +1233,7 @@
   '3D u-momentum southern boundary condition'
   'meter second-1'                                 ! [m/s]
   'u_south, scalar, series'
-  'v3d_time'
+  'ocean_time'
   'idU3bc(isouth)'
   'nulvar'
   1.0d0
@@ -1242,7 +1242,7 @@
   '3D u-momentum northern boundary condition'
   'meter second-1'                                 ! [m/s]
   'u_north, scalar, series'
-  'v3d_time'
+  'ocean_time'
   'idU3bc(inorth)'
   'nulvar'
   1.0d0
@@ -1251,7 +1251,7 @@
   '3D v-momentum western boundary condition'
   'meter second-1'                                 ! [m/s]
   'v_west, scalar, series'
-  'v3d_time'
+  'ocean_time'
   'idV3bc(iwest)'
   'nulvar'
   1.0d0
@@ -1260,7 +1260,7 @@
   '3D v-momentum eastern boundary condition'
   'meter second-1'                                 ! [m/s]
   'v_east, scalar, series'
-  'v3d_time'
+  'ocean_time'
   'idV3bc(ieast)'
   'nulvar'
   1.0d0
@@ -1269,7 +1269,7 @@
   '3D v-momentum southern boundary condition'
   'meter second-1'                                 ! [m/s]
   'v_south, scalar, series'
-  'v3d_time'
+  'ocean_time'
   'idV3bc(isouth)'
   'nulvar'
   1.0d0
@@ -1278,7 +1278,7 @@
   '3D v-momentum northern boundary condition'
   'meter second-1'                                 ! [m/s]
   'v_north, scalar, series'
-  'v3d_time'
+  'ocean_time'
   'idV3bc(inorth)'
   'nulvar'
   1.0d0
@@ -2074,7 +2074,7 @@
   'u-momentum component climatology'
   'meter second-1'                                 ! [m/s]
   'u-velocity, scalar, series'
-  'v3d_time'
+  'ocean_time'
   'idUclm'
   'u3dvar'
   1.0d0
@@ -2083,7 +2083,7 @@
   'v-momentum component climatology'
   'meter second-1'                                 ! [m/s]
   'v-velocity, scalar, series'
-  'v3d_time'
+  'ocean_time'
   'idVclm'
   'v3dvar'
   1.0d0
@@ -2181,7 +2181,7 @@
   'u-momentum component functional'
   'meter second-1'                                 ! [m/s]
   'u-velocity, scalar, series'
-  'v3d_time'
+  'ocean_time'
   'idUads'
   'u3dvar'
   1.0d0
@@ -2190,7 +2190,7 @@
   'v-momentum component functional'
   'meter second-1'                                 ! [m/s]
   'v-velocity, scalar, series'
-  'v3d_time'
+  'ocean_time'
   'idVads'
   'v3dvar'
   1.0d0
@@ -2199,7 +2199,7 @@
   'w-momentum component functional'
   'meter second-1'                                 ! [m/s]
   'w-velocity, scalar, series'
-  'v3d_time'
+  'ocean_time'
   'idWads'
   'w3dvar'
   1.0d0
@@ -2264,7 +2264,7 @@
   'u-momentum component impulse forcing'
   'meter second-1'                                 ! [m/s]
   'u-velocity, scalar, series'
-  'v3d_time'
+  'ocean_time'
   'idUtlf'
   'u3dvar'
   1.0d0
@@ -2273,7 +2273,7 @@
   'v-momentum component impulse forcing'
   'meter second-1'                                 ! [m/s]
   'v-velocity, scalar, series'
-  'v3d_time'
+  'ocean_time'
   'idVtlf'
   'v3dvar'
   1.0d0
