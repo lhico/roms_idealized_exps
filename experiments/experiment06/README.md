@@ -40,6 +40,7 @@ cp -r ${ROMS_HOME}/Functionals/* $PROJECT_PATH/functionals
 # renaming files
 mv roms_upwelling.in roms_realistic_ic.in
 mv upwelling.h realistic_ic.h
+mv varinfo.dat varinfo.dat.bk
 
 ```
 
@@ -329,7 +330,8 @@ FRCNAME == input/era5_2019-08-01T00:00:00.nc |
 
 ```
 
-You may need to adjust the dimensions names in varinfo.dat, depending on the input files you use.
+**ATTENTION**
+Download varinfo.dat FROM the repository (experiment06) and compare it with varinfo.dat.bk . I adjusted some dimensions names in varinfo.dat to cope with dimensions names of the boundary files;
 
 
 ## 5. Set up analytical fields
