@@ -221,13 +221,13 @@ export MY_ANALYTICAL_DIR=${MY_PROJECT_DIR}/functionals
     MyAppCPP = REALISTIC_IC  ! this is just a name and doesn't
 
 
-
+! ATTENTION: replace '?' by APPROPRIATE VALUES (read the comments above)
   (...)
   VARNAME = varinfo.dat
    (...)
-   Lm == 22            ! Number of I-direction INTERIOR RHO-points
-   Mm == 45            ! Number of J-direction INTERIOR RHO-points
-   N == 20             ! Number of vertical levels
+   Lm == ?            ! Number of I-direction INTERIOR RHO-points
+   Mm == ?            ! Number of J-direction INTERIOR RHO-points
+   N  == ?             ! Number of vertical levels
 
   (...)
 
@@ -240,9 +240,10 @@ export MY_ANALYTICAL_DIR=${MY_PROJECT_DIR}/functionals
 
    (...)
 
-  THETA_S == 7.0d0                      ! surface stretching parameter
-  THETA_B == 3.0d0                      ! bottom  stretching parameter
-  TCLINE == 250.0d0                     ! critical depth (m)
+  ! ATTENTION: replace '?' by APPROPRIATE VALUES
+  THETA_S ==  ? !7.0d0                      ! surface stretching parameter
+  THETA_B ==  ? !3.0d0                      ! bottom  stretching parameter
+  TCLINE  ==  ? !250.0d0                     ! critical depth (m)
 
    (...)
    # boundary conditions: check the .in for more details
