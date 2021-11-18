@@ -331,7 +331,11 @@ FRCNAME == input/era5_2019-08-01T00:00:00.nc |
 ```
 
 **ATTENTION**
-Download varinfo.dat FROM the repository (experiment06) and compare it with varinfo.dat.bk . I adjusted some dimensions names in varinfo.dat to cope with dimensions names of the boundary files;
+Download varinfo.dat FROM the repository (experiment06) and compare it with varinfo.dat.bk . I adjusted some dimensions names in varinfo.dat to cope with dimensions names of the boundary files; Something you can use is `vimdiff`
+
+```
+vimdiff varinfo.dat varinfo.dat.bk
+```
 
 
 ## 5. Set up analytical fields
