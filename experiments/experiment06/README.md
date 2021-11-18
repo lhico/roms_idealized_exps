@@ -44,6 +44,15 @@ mv varinfo.dat varinfo.dat.bk
 
 ```
 
+**ATTENTION!!!**
+
+Download varinfo.dat FROM the repository (experiment06) and compare it with varinfo.dat.bk . I adjusted some dimensions names in varinfo.dat to cope with dimensions names of the boundary files; Something you can use is `vimdiff`. The main thing in this experiment is to adjust the dimension names related to boundary conditions variables (`*_east`, `*_west`, `*_south`, `*_north`), but you may need to adjust other variables as well. 
+
+```
+vimdiff varinfo.dat varinfo.dat.bk
+```
+
+
 
 ## 2. Set up build_roms.sh
 
@@ -330,12 +339,6 @@ FRCNAME == input/era5_2019-08-01T00:00:00.nc |
 
 ```
 
-**ATTENTION**
-Download varinfo.dat FROM the repository (experiment06) and compare it with varinfo.dat.bk . I adjusted some dimensions names in varinfo.dat to cope with dimensions names of the boundary files; Something you can use is `vimdiff`
-
-```
-vimdiff varinfo.dat varinfo.dat.bk
-```
 
 
 ## 5. Set up analytical fields
