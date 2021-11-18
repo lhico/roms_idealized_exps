@@ -33,14 +33,13 @@ mkdir input
 # set directories
 cp ${ROMS_HOME}/Bin/build_roms.sh          $PROJECT_PATH
 cp ${ROMS_HOME}/External/roms_upwelling.in $PROJECT_PATH
-cp ${ROMS_HOME}/External/varinfo.dat       $PROJECT_PATH
+cp ${ROMS_HOME}/External/varinfo.dat       $PROJECT_PATH/varinfo.dat.bk
 cp ${ROMS_HOME}/Include/upwelling.h        $PROJECT_PATH
 cp -r ${ROMS_HOME}/Functionals/* $PROJECT_PATH/functionals
 
 # renaming files
 mv roms_upwelling.in roms_realistic_ic.in
 mv upwelling.h realistic_ic.h
-mv varinfo.dat varinfo.dat.bk
 
 ```
 
