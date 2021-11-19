@@ -208,8 +208,8 @@ export MY_ANALYTICAL_DIR=${MY_PROJECT_DIR}/functionals
    **ATTENTION**: I haven't configured the horizontal values of interior rho-points. Figure it out by checking the gridfile netcdf.
 
 
-  You can find the Lm and Mm values by checking the dimensions `xi_rho` and `eta_rho` and subtract 2 from each. You can use the command `ncdump -h roms_grid00.nc` to get the dimensions.
-  The vertical stretching parameters are set while building the grid.
+  You can find the Lm and Mm values by checking the dimensions `xi_rho` and `eta_rho` and subtract 2 from each. The number of vertical points N is given by `s_rho`. You can use the command `ncdump -h roms_grid00.nc` to get the dimensions.
+  The vertical stretching parameters (`THETA_S, THETA_B, TCLINE`) were set when the grid. 
 
 ```
 ! Application title.
